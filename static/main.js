@@ -1,14 +1,23 @@
 window.onload = function () {
-    // Fetch the JSON data
+    // Fetch the JSON data for the first chart
     fetch("static/wetterDataInside.json")
         .then((response) => response.json())
         .then((data) => {
             // Use the data to generate the chart
-            generateChart(data.allStats);
+            generateChart(data.allStats, "chartContainer", "Inside Data", "#eb3434", "#6e34eb");
         })
         .catch((error) => console.error("Error fetching JSON:", error));
 
-    function generateChart(allStats) {
+    // Fetch the JSON data for the second chart
+    fetch("static/wetterDataOutside.json")
+        .then((response) => response.json())
+        .then((data) => {
+            // Use the data to generate the second chart
+            generateChart(data.allStats, "chartContainer2", "Outside Data", "#68eb34", "#33BFFF");
+        })
+        .catch((error) => console.error("Error fetching JSON:", error));
+
+    function generateChart(allStats, containerId, chartTitle, tempColor, humidityColor) {
         // Use the last 12 data points
         var last12Stats = allStats.slice(-12);
 
@@ -32,10 +41,10 @@ window.onload = function () {
         }
         var averageDifference = totalDifference / (chartData.length - 1);
 
-        var chart = new CanvasJS.Chart("chartContainer", {
+        var chart = new CanvasJS.Chart(containerId, {
             animationEnabled: true,
             title: {
-                text: "Temp and Humi Graph",
+                text: chartTitle,
             },
             toolTip: {
                 shared: true,
@@ -62,27 +71,27 @@ window.onload = function () {
             },
             axisY: {
                 title: "Temp",
-                titleFontColor: "#FF7373",
+                titleFontColor: tempColor,
                 suffix: " *C",
-                lineColor: "#FF7373",
-                tickColor: "#FF7373",
+                lineColor: tempColor,
+                tickColor: tempColor,
             },
             axisY2: {
                 title: "Humidity",
-                titleFontColor: "#02E0D9",
+                titleFontColor: humidityColor,
                 suffix: " %",
-                lineColor: "#02E0D9",
-                tickColor: "#02E0D9",
+                lineColor: humidityColor,
+                tickColor: humidityColor,
             },
             data: [
                 {
                     type: "spline",
-                    name: "temp",
+                    name: "Temperature",
                     showInLegend: true,
                     yValueFormatString: "#,##0.00 *C",
-                    indexLabelFontColor: "#FF7373",
+                    indexLabelFontColor: tempColor,
                     indexLabelPlacement: "outside",
-                    color: "#FF7373",  // Explicitly set the line color
+                    color: tempColor,
                     dataPoints: chartData.map(function (point) {
                         return { x: point.x, y: point.y1 };
                     }),
@@ -90,18 +99,17 @@ window.onload = function () {
                 {
                     type: "spline",
                     axisYType: "secondary",
-                    name: "humidity",
+                    name: "Humidity",
                     showInLegend: true,
                     yValueFormatString: "#,##0.#",
-                    indexLabelFontColor: "#02E0D9",
+                    indexLabelFontColor: humidityColor,
                     indexLabelPlacement: "outside",
-                    color: "#02E0D9",  // Explicitly set the line color
+                    color: humidityColor,
                     dataPoints: chartData.map(function (point) {
                         return { x: point.x, y: point.y2 };
                     }),
                 },
             ],
-            
         });
         chart.render();
     }
