@@ -1,45 +1,73 @@
-html, body {
+html,
+body {
 	height: 100%;
 	margin: 0;
 	padding: 0;
-  }
-  
-  .grid-container {
+	font-family: arial;
+}
+
+.header h1 {
+	text-align: center;
+	text-transform: uppercase;
+	font-size: 50px;
+	color: rgba(0, 0, 0, 0.2);
+	background-image: url(https://image.ibb.co/ciSeac/image.png);
+	background-repeat: repeat-x;
+	-webkit-background-clip: text;
+	animation: animate 15s linear infinite;
+}
+
+@keyframes animate {
+	0% {
+		background-position: left 0px top -40;
+	}
+	40% {
+		background-position: left 800px top -90px;
+	}
+	80% {
+		background-position: left 1800px top -90px;
+	}
+	100% {
+		background-position: left 2400px top -40px;
+	}
+}
+
+.grid-container {
 	display: grid;
 	grid-template-columns: 1fr 3fr 1fr;
-	grid-template-rows: auto 1fr auto;
+	grid-template-rows: 0.2fr 1fr auto;
 	grid-template-areas:
-	  "header header header"
-	  "main main right"
-	  "footer footer footer";
+		"header header header"
+		"main main right"
+		"footer footer footer";
 	height: 100%;
-  }
-  
-  .header {
+}
+
+.header {
 	grid-area: header;
 	background-color: #ddd;
-	padding: 20px;
+	padding: 0;
 	text-align: center;
-  }
-  
-  .main {
+}
+
+.main {
 	grid-area: main;
 	background-color: #fff;
 	padding: 20px;
-  }
-  
-  .right {
+}
+
+.right {
 	grid-area: right;
 	background-color: #eee;
 	padding: 20px;
 	padding-left: 20%;
-  }
-  
-  .footer {
+}
+
+.footer {
 	grid-area: footer;
 	background-color: #ddd;
 	padding: 20px;
-  }
+}
 
 .chart {
 	margin-top: 2%;
