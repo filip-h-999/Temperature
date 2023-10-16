@@ -1,21 +1,56 @@
-body {
-    margin: 0;
-    padding: 0;
-    background-image: url('/static/img/back.jpg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+html, body {
+	height: 100%;
+	margin: 0;
+	padding: 0;
+  }
+  
+  .grid-container {
+	display: grid;
+	grid-template-columns: 1fr 3fr 1fr;
+	grid-template-rows: auto 1fr auto;
+	grid-template-areas:
+	  "header header header"
+	  "main main right"
+	  "footer footer footer";
+	height: 100%;
+  }
+  
+  .header {
+	grid-area: header;
+	background-color: #ddd;
+	padding: 20px;
+	text-align: center;
+  }
+  
+  .main {
+	grid-area: main;
+	background-color: #fff;
+	padding: 20px;
+  }
+  
+  .right {
+	grid-area: right;
+	background-color: #eee;
+	padding: 20px;
+	padding-left: 20%;
+  }
+  
+  .footer {
+	grid-area: footer;
+	background-color: #ddd;
+	padding: 20px;
+  }
+
+.chart {
+	margin-top: 2%;
+	margin-left: 10%;
+	height: 400px;
+	width: 80%;
 }
 
-.chart{
-    margin-left: 10%;
-    height: 400px; 
-    width: 80%;
-}
-
-.chart2{
-    margin-left: 10%;
-    margin-top: 5%;
-    height: 400px; 
-    width: 80%;
+.chart2 {
+	margin-top: 5%;
+	margin-left: 10%;
+	height: 400px;
+	width: 80%;
 }

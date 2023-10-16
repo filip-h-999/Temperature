@@ -70,6 +70,7 @@ window.onload = function () {
                 },
             },
             axisY: {
+                interlacedColor: "Azure",
                 title: "Temp",
                 titleFontColor: tempColor,
                 suffix: " *C",
