@@ -61,7 +61,33 @@ body {
 	grid-area: right;
 	background-color: #f2f0f0;
 	padding: 20px;
-	padding-left: 20%;
+}
+
+.right h1, h2 {
+	text-align: center;
+	margin-top: 0px;
+	padding-bottom: 10px;
+}
+
+.right p, p1, p2, p3, p4 {
+	padding-bottom: 20px;
+	padding-left: 15px;
+}
+
+#hI {
+	color: #eb3434;
+}
+
+#lI {
+	color: #6e34eb;
+}
+
+#hO {
+	color: #34eb34;
+}
+
+#lO {
+	color: #33BFFF;
 }
 
 .footer {
