@@ -142,6 +142,16 @@ window.onload = function () {
         var minTempIn = Math.min.apply(Math, lowestTemp.map(function(o) { return o.Temp; }));
         var minTempInElement = document.getElementById("lowIn");
         minTempInElement.innerHTML = minTempIn + " *C";
+
+        var higestHumidity = allStats.slice(-dayData);
+        var maxHumidity = Math.max.apply(Math, higestHumidity.map(function(o) { return o.Humidity; }));
+        var maxHumidityElement = document.getElementById("hHIn");
+        maxHumidityElement.innerHTML = maxHumidity + "%";
+
+        var lowestHumidity = allStats.slice(-dayData);
+        var minHumidity = Math.min.apply(Math, lowestHumidity.map(function(o) { return o.Humidity; }));
+        var minHumidityElement = document.getElementById("lHIn");
+        minHumidityElement.innerHTML = minHumidity + "%";
     }
 
     function parsDataOut(allStats){
@@ -152,16 +162,26 @@ window.onload = function () {
         else {
             dayData = 24;
         }
-        
-        var highesTempOut = allStats.slice(-12);
+
+        var highesTempOut = allStats.slice(-dayData);
         var maxTempOut = Math.max.apply(Math, highesTempOut.map(function(o) { return o.Temp; }));
         var maxTempOutElement = document.getElementById("highOut");
         maxTempOutElement.innerHTML = maxTempOut + " *C";
 
-        var lowestTempOut = allStats.slice(-12);
+        var lowestTempOut = allStats.slice(-dayData);
         var minTempOut = Math.min.apply(Math, lowestTempOut.map(function(o) { return o.Temp; }));
         var minTempOutElement = document.getElementById("lowOut");
         minTempOutElement.innerHTML = minTempOut + " *C";
+
+        var higestHumidityOut = allStats.slice(-dayData);
+        var maxHumidityOut = Math.max.apply(Math, higestHumidityOut.map(function(o) { return o.Humidity; }));
+        var maxHumidityOutElement = document.getElementById("hHOut");
+        maxHumidityOutElement.innerHTML = maxHumidityOut + "%";
+
+        var lowestHumidityOut = allStats.slice(-dayData);
+        var minHumidityOut = Math.min.apply(Math, lowestHumidityOut.map(function(o) { return o.Humidity; }));
+        var minHumidityOutElement = document.getElementById("lHOut");
+        minHumidityOutElement.innerHTML = minHumidityOut + "%";
     }
 
 };

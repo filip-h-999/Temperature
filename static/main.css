@@ -70,10 +70,15 @@ body {
 	padding-bottom: 10px;
 }
 
-.right p, p1, p2, p3, p4 {
-	padding-bottom: 20px;
+.right h2{
+	margin-top: 30px;
+}
+
+.right p, p1{
 	padding-left: 15px;
 }
+
+/* DayDataIn: */
 
 #highIn {
 	color: #eb3434;
@@ -83,6 +88,16 @@ body {
 	color: #33BFFF;
 }
 
+#hHIn{
+	color: 	#ff;
+}
+
+#lHIn{
+	color: #ff;
+}
+
+/* DayDataOut: */
+
 #highOut {
 	color: #eb3434;
 }
@@ -91,12 +106,32 @@ body {
 	color: #33BFFF;
 }
 
+#hHOut{
+	color: #ff;
+}
+
+#lHOut{
+	color: #ff;
+}
+
 #hI, #lI{
+	color: #eb3434;
+}
+
+#hHI, #lHI{
 	color: #6e34eb;
 }
 
 #hO, #lO{
 	color: #68eb34;
+}
+
+#hHO, #lHO{
+	color: #33BFFF;
+}
+
+#hO{
+	margin-top: 40px;
 }
 
 .footer {
