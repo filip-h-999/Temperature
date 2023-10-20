@@ -5,6 +5,7 @@ window.onload = function () {
         .then((data) => {
             // Use the data to generate the chart
             generateChart(data.allStats, "chartContainer", "Inside Data", "#eb3434", "#6e34eb");
+            parsData(data.allStats)
         })
         .catch((error) => console.error("Error fetching JSON:", error));
 
@@ -19,7 +20,7 @@ window.onload = function () {
 
     function generateChart(allStats, containerId, chartTitle, tempColor, humidityColor) {
         // Use the last 12 data points
-        var last12Stats = allStats.slice(-12);
+        var last12Stats = allStats.slice(-24);
 
         var chartData = [];
 
@@ -66,7 +67,7 @@ window.onload = function () {
                 suffix: " h",
                 interval: averageDifference,
                 labelFormatter: function (e) {
-                    return CanvasJS.formatDate(new Date(e.value), "HH:mm");
+                    return CanvasJS.formatDate(new Date(e.value), "HH");
                 },
             },
             axisY: {
@@ -114,4 +115,34 @@ window.onload = function () {
         });
         chart.render();
     }
+
+    function parsData(allStats){
+        var lastValue = allStats.slice(-1);
+        var temp = lastValue[0].Temp;
+        var humidity = lastValue[0].Humidity;
+
+        var currentElement = document.getElementById("current");
+        currentElement.innerHTML = temp + " *C" + " / " + humidity + "%";
+
+        var higestTempIn = allStats.slice(-12);
+        var maxTempIn = Math.max.apply(Math, higestTempIn.map(function(o) { return o.Temp; }));
+        var maxTempInElement = document.getElementById("highIn");
+        maxTempInElement.innerHTML = maxTempIn + " *C";
+
+        var lowestTemp = allStats.slice(-12);
+        var minTempIn = Math.min.apply(Math, lowestTemp.map(function(o) { return o.Temp; }));
+        var minTempInElement = document.getElementById("lowIn");
+        minTempInElement.innerHTML = minTempIn + " *C";
+
+        var highesTempOut = allStats.slice(-12);
+        var maxTempOut = Math.max.apply(Math, highesTempOut.map(function(o) { return o.Temp; }));
+        var maxTempOutElement = document.getElementById("highOut");
+        maxTempOutElement.innerHTML = maxTempOut + " *C";
+
+        var lowestTempOut = allStats.slice(-12);
+        var minTempOut = Math.min.apply(Math, lowestTempOut.map(function(o) { return o.Temp; }));
+        var minTempOutElement = document.getElementById("lowOut");
+        minTempOutElement.innerHTML = minTempOut + " *C";
+    }
+
 };

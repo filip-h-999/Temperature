@@ -59,8 +59,9 @@ body {
 
 .right {
 	grid-area: right;
-	background-color: #f2f0f0;
+	background-color: Azure;
 	padding: 20px;
+	border-left: 3px solid black;
 }
 
 .right h1, h2 {
@@ -74,20 +75,28 @@ body {
 	padding-left: 15px;
 }
 
-#hI {
+#highIn {
 	color: #eb3434;
 }
 
-#lI {
+#lowIn {
+	color: #33BFFF;
+}
+
+#highOut {
+	color: #eb3434;
+}
+
+#lowOut {
+	color: #33BFFF;
+}
+
+#hI, #lI{
 	color: #6e34eb;
 }
 
-#hO {
-	color: #34eb34;
-}
-
-#lO {
-	color: #33BFFF;
+#hO, #lO{
+	color: #68eb34;
 }
 
 .footer {
