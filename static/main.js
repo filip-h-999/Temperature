@@ -5,7 +5,7 @@ window.onload = function () {
         .then((data) => {
             // Use the data to generate the chart
             generateChart(data.allStats, "chartContainer", "Inside Data", "#eb3434", "#6e34eb");
-            parsData(data.allStats)
+            parsDataIn(data.allStats)
         })
         .catch((error) => console.error("Error fetching JSON:", error));
 
@@ -15,6 +15,7 @@ window.onload = function () {
         .then((data) => {
             // Use the data to generate the second chart
             generateChart(data.allStats, "chartContainer2", "Outside Data", "#68eb34", "#33BFFF");
+            parsDataOut(data.allStats)
         })
         .catch((error) => console.error("Error fetching JSON:", error));
 
@@ -116,7 +117,15 @@ window.onload = function () {
         chart.render();
     }
 
-    function parsData(allStats){
+    function parsDataIn(allStats){
+        dayData = 0;
+        if (allStats.length < 24) {
+            dayData = allStats.length;
+        }
+        else {
+            dayData = 24;
+        }
+
         var lastValue = allStats.slice(-1);
         var temp = lastValue[0].Temp;
         var humidity = lastValue[0].Humidity;
@@ -124,16 +133,26 @@ window.onload = function () {
         var currentElement = document.getElementById("current");
         currentElement.innerHTML = temp + " *C" + " / " + humidity + "%";
 
-        var higestTempIn = allStats.slice(-12);
+        var higestTempIn = allStats.slice(-dayData);
         var maxTempIn = Math.max.apply(Math, higestTempIn.map(function(o) { return o.Temp; }));
         var maxTempInElement = document.getElementById("highIn");
         maxTempInElement.innerHTML = maxTempIn + " *C";
 
-        var lowestTemp = allStats.slice(-12);
+        var lowestTemp = allStats.slice(-dayData);
         var minTempIn = Math.min.apply(Math, lowestTemp.map(function(o) { return o.Temp; }));
         var minTempInElement = document.getElementById("lowIn");
         minTempInElement.innerHTML = minTempIn + " *C";
+    }
 
+    function parsDataOut(allStats){
+        dayData = 0;
+        if (allStats.length < 24) {
+            dayData = allStats.length;
+        }
+        else {
+            dayData = 24;
+        }
+        
         var highesTempOut = allStats.slice(-12);
         var maxTempOut = Math.max.apply(Math, highesTempOut.map(function(o) { return o.Temp; }));
         var maxTempOutElement = document.getElementById("highOut");
