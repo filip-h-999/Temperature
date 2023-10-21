@@ -2,14 +2,19 @@ import Adafruit_DHT
 import json
 import datetime
 import os
+from gpiozero import OutputDevice
 
 sensor = Adafruit_DHT.DHT11
 pinIn = 4
 pinOut = 11
-insode = "wetterDataInside.json"
-out = "wetterDataOutside.json"
+inside = "wetterDataInside.json"
+outside = "wetterDataOutside.json"
 
-def messure(file, pin):
+# Define the OutputDevice for the GPIO pin
+relay_in = OutputDevice(pinIn, active_high=False, initial_value=False)
+relay_out = OutputDevice(pinOut, active_high=False, initial_value=False)
+
+def measure(file, pin, relay):
     if os.path.exists(file):
         with open(file, "r") as f:
             data = json.load(f)
@@ -32,14 +37,11 @@ def messure(file, pin):
     with open(file, 'w') as f:
         json.dump({"allStats": allStats}, f, indent=4)
 
+    # Turn off the relay after measurement
+    relay.off()
 
-def measure_temp_humid_in():
-    messure(insode, pinIn)
+relay_in.on()  # Turn on the relay before measurement
+measure(inside, pinIn, relay_in)
 
-
-def measure_temp_humid_out():
-    messure(out, pinOut)
-
-
-measure_temp_humid_in()
-measure_temp_humid_out()
+relay_out.on()  # Turn on the relay before measurement
+measure(outside, pinOut, relay_out)
