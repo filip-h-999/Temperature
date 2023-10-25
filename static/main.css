@@ -98,11 +98,11 @@ body {
 
 /* DayDataOut: */
 
-#highOut {
+#highOut, #highInw, #highOutw{
 	color: #eb3434;
 }
 
-#lowOut {
+#lowOut, #lowInw, #lOw {
 	color: #33BFFF;
 }
 
@@ -114,24 +114,16 @@ body {
 	color: #ff;
 }
 
-#hI, #lI{
-	color: #eb3434;
-}
-
-#hHI, #lHI{
+#hHIn, #lHIn{
 	color: #6e34eb;
 }
 
-#hO, #lO{
-	color: #68eb34;
-}
-
-#hHO, #lHO{
+#hHOut, #lHOut{
 	color: #33BFFF;
 }
 
-#hO{
-	margin-top: 40px;
+#hO, #hOw{
+	margin-top: 40px;	
 }
 
 .footer {

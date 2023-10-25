@@ -126,6 +126,7 @@ window.onload = function () {
             dayData = 24;
         }
 
+        // current data
         var lastValue = allStats.slice(-1);
         var temp = lastValue[0].Temp;
         var humidity = lastValue[0].Humidity;
@@ -133,6 +134,7 @@ window.onload = function () {
         var currentElement = document.getElementById("current");
         currentElement.innerHTML = temp + " *C" + " / " + humidity + "%";
 
+        // in one day
         var higestTempIn = allStats.slice(-dayData);
         var maxTempIn = Math.max.apply(Math, higestTempIn.map(function(o) { return o.Temp; }));
         var maxTempInElement = document.getElementById("highIn");
@@ -152,6 +154,17 @@ window.onload = function () {
         var minHumidity = Math.min.apply(Math, lowestHumidity.map(function(o) { return o.Humidity; }));
         var minHumidityElement = document.getElementById("lHIn");
         minHumidityElement.innerHTML = minHumidity + "%";
+
+        // in one week
+        var higestTempIn = allStats.slice(-dayData*7);
+        var maxTempIn = Math.max.apply(Math, higestTempIn.map(function(o) { return o.Temp; }));
+        var maxTempInElement = document.getElementById("highInw");
+        maxTempInElement.innerHTML = maxTempIn + " *C";
+
+        var lowestTemp = allStats.slice(-dayData*7);
+        var minTempIn = Math.min.apply(Math, lowestTemp.map(function(o) { return o.Temp; }));
+        var minTempInElement = document.getElementById("lowInw");
+        minTempInElement.innerHTML = minTempIn + " *C";
     }
 
     function parsDataOut(allStats){
@@ -163,6 +176,7 @@ window.onload = function () {
             dayData = 24;
         }
 
+        // current data
         var lastValue = allStats.slice(-1);
         var temp = lastValue[0].Temp;
         var humidity = lastValue[0].Humidity;
@@ -170,6 +184,7 @@ window.onload = function () {
         var currentElement = document.getElementById("currentOut");
         currentElement.innerHTML = temp + " *C" + " / " + humidity + "%";
 
+        // in one day
         var highesTempOut = allStats.slice(-dayData);
         var maxTempOut = Math.max.apply(Math, highesTempOut.map(function(o) { return o.Temp; }));
         var maxTempOutElement = document.getElementById("highOut");
@@ -189,6 +204,17 @@ window.onload = function () {
         var minHumidityOut = Math.min.apply(Math, lowestHumidityOut.map(function(o) { return o.Humidity; }));
         var minHumidityOutElement = document.getElementById("lHOut");
         minHumidityOutElement.innerHTML = minHumidityOut + "%";
+
+        // in one week
+        var higestTempOut = allStats.slice(-dayData*7);
+        var maxTempOut = Math.max.apply(Math, higestTempOut.map(function(o) { return o.Temp; }));
+        var maxTempOutElement = document.getElementById("highOutw");
+        maxTempOutElement.innerHTML = maxTempOut + " *C";
+
+        var lowestTempOut = allStats.slice(-dayData*7);
+        var minTempOut = Math.min.apply(Math, lowestTempOut.map(function(o) { return o.Temp; }));
+        var minTempOutElement = document.getElementById("lowOutw");
+        minTempOutElement.innerHTML = minTempOut + " *C";
     }
 
 };
