@@ -163,6 +163,13 @@ window.onload = function () {
             dayData = 24;
         }
 
+        var lastValue = allStats.slice(-1);
+        var temp = lastValue[0].Temp;
+        var humidity = lastValue[0].Humidity;
+
+        var currentElement = document.getElementById("currentOut");
+        currentElement.innerHTML = temp + " *C" + " / " + humidity + "%";
+
         var highesTempOut = allStats.slice(-dayData);
         var maxTempOut = Math.max.apply(Math, highesTempOut.map(function(o) { return o.Temp; }));
         var maxTempOutElement = document.getElementById("highOut");
