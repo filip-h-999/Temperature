@@ -126,6 +126,12 @@ window.onload = function () {
             dayData = 24;
         }
 
+        // Timestamp
+        var lastValue = allStats.slice(-1);
+        var timestamp = lastValue[0].Time;
+        var timestampElement = document.getElementById("timestamp");
+        timestampElement.innerHTML = timestamp;
+
         // current data
         var lastValue = allStats.slice(-1);
         var temp = lastValue[0].Temp;
