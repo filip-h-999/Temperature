@@ -33,4 +33,6 @@ This project utilizes a Raspberry Pi along with two DHT11 sensors to monitor tem
      pip install Adafruit_DHT matplotlib
      ```
      
-<img src="static\img\screenshot.png" alt="Screenshot 1" width="600">
+<p align="center">
+  <img src="static\img\screenshot.png" alt="Screenshot 1" width="600">
+</p>
