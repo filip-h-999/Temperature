@@ -19,6 +19,16 @@ window.onload = function () {
         })
         .catch((error) => console.error("Error fetching JSON:", error));
 
+    // Fetch the JSON data for the third chart
+    fetch("static/wetterDataOutside.json")
+        .then((response) => response.json())
+        .then((data) => {
+            // Use the data to generate the second chart
+            generateChart2(data.allStats, "chartContainer3", "Alltime Data");
+            parsDataOut(data.allStats)
+        })
+        .catch((error) => console.error("Error fetching JSON:", error));
+
     function generateChart(allStats, containerId, chartTitle, tempColor, humidityColor) {
         // Use the last 12 data points
         var last12Stats = allStats.slice(-24);
@@ -116,6 +126,40 @@ window.onload = function () {
         });
         chart.render();
     }
+
+    function generateChart2(allStats, containerId, chartTitle) {
+        // Extract temp for the chart
+        var dataPoints = allStats.map(function (data) {
+            return { x: new Date(data.Time), y: data.Temp };
+        });
+    
+        var stockChart = new CanvasJS.StockChart(containerId, {
+            title: {
+                text: chartTitle
+            },
+            charts: [{
+                axisY: {
+                    suffix: " °C",
+                    title: "Temp"
+                  },
+                data: [{
+                    type: "line", // Change it to "spline", "area", "column"
+                    dataPoints: dataPoints,
+                    color: "#E6690E"
+                }]
+            }],
+            navigator: {
+                slider: {
+                    minimum: new Date(allStats[0].Time),
+                    maximum: new Date(allStats[allStats.length - 1].Time)
+                }
+            }
+        });
+    
+        stockChart.render();
+    }
+    
+    
 
     function parsDataIn(allStats){
         dayData = 0;
