@@ -61,17 +61,16 @@ window.onload = function () {
             toolTip: {
                 shared: true,
                 contentFormatter: function (e) {
-                    var content = "Time: ";
+                    var content = "Time: " +
+                        CanvasJS.formatDate(new Date(e.entries[0].dataPoint.x), "H:mm") + "<br><br>";
+                
                     for (var i = 0; i < e.entries.length; i++) {
                         content +=
-                            CanvasJS.formatDate(new Date(e.entries[i].dataPoint.x), "H:mm") +
-                            "<br>";
-                        content +=
                             "<strong>" + e.entries[i].dataSeries.name + "</strong>: ";
-                        content += e.entries[i].dataPoint.y + "<br><br>";
+                        content += e.entries[i].dataPoint.y + (i === 0 ? "°C" : "%") + "<br>";
                     }
                     return content;
-                },
+                }
             },
             axisX: {
                 title: "Time",
@@ -132,13 +131,31 @@ window.onload = function () {
         var dataPoints = allStats.map(function (data) {
             return { x: new Date(data.Time), y: data.Temp };
         });
+
+        var dataPoints2 = allStats.map(function (data) {
+            return { x: new Date(data.Time), y: data.Humidity };
+        });
     
         var stockChart = new CanvasJS.StockChart(containerId, {
             title: {
                 text: chartTitle
             },
             charts: [{
+                toolTip: {
+                    shared: true,
+                    contentFormatter: function (e) {
+                        var content = "Time: ";
+                        var content2 = "Temp: ";
+                        for (var i = 0; i < e.entries.length; i++) {
+                            content +=
+                                CanvasJS.formatDate(new Date(e.entries[i].dataPoint.x), "H:mm") +"<br>";
+                            content2 += e.entries[i].dataPoint.y + "°C";
+                        }
+                        return content + content2;  
+                    },
+                },
                 axisY: {
+                    interlacedColor: "Azure",
                     suffix: " °C",
                     title: "Temp"
                   },
@@ -146,6 +163,30 @@ window.onload = function () {
                     type: "line", // Change it to "spline", "area", "column"
                     dataPoints: dataPoints,
                     color: "#E6690E"
+                }]
+                },{
+                toolTip: {
+                    shared: true,
+                    contentFormatter: function (e) {
+                        var content = "Time: ";
+                        var content2 = "Humi: ";
+                        for (var i = 0; i < e.entries.length; i++) {
+                            content +=
+                                CanvasJS.formatDate(new Date(e.entries[i].dataPoint.x), "H:mm") +"<br>";
+                            content2 += e.entries[i].dataPoint.y + "%";
+                        }
+                        return content + content2;  
+                    },
+                },
+                axisY: {
+                    interlacedColor: "Azure",
+                    suffix: " %",
+                    title: "Humi"
+                    },
+                data: [{
+                    type: "column", // Change it to "spline", "area", "column"
+                    dataPoints: dataPoints2,
+                    color: "#33BFFF"
                 }]
             }],
             navigator: {
