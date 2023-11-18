@@ -49,9 +49,15 @@ def measure(file, pin, relay, powerPin):
 powerPinIn.on()
 relay_in.on()  # Turn on the relay before measurement
 time.sleep(1)
-measure(inside, pinIn, relay_in, powerPinIn)
+try:
+    measure(inside, pinIn, relay_in, powerPinIn)
+except:
+    print("Error Inside")
 
 powerPinOut.on()
 relay_out.on()  # Turn on the relay before measurement
 time.sleep(1)
-measure(outside, pinOut, relay_out, powerPinOut)
+try:
+    measure(outside, pinOut, relay_out, powerPinOut)
+except:
+    print("Error Outside")
