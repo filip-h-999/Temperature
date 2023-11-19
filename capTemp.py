@@ -30,34 +30,45 @@ def measure(file, pin, relay, powerPin):
     allStats = data["allStats"]
     stats = {}
 
-    hum, temp = Adafruit_DHT.read_retry(sensor, pin)
-    # print('Temp={0:0.1f}*C  Humidity={1:0.1f}%'.format(temp, hum))
+    # Attempt measurements for 5 minutes
+    end_time = time.time() + 5 * 60  # 5 minutes in seconds
+    while time.time() < end_time:
+        hum, temp = Adafruit_DHT.read(sensor, pin)
+        if hum is not None and temp is not None:
+            stats["Time"] = current_time.strftime("%Y-%m-%d %H:%M:%S")
+            stats["Humidity"] = hum
+            stats["Temp"] = temp
+            allStats.append(stats)
 
-    stats["Time"] = current_time.strftime("%Y-%m-%d %H:%M:%S")
-    stats["Humidity"] = hum
-    stats["Temp"] = temp
-    allStats.append(stats)
+            with open(file, 'w') as f:
+                json.dump({"allStats": allStats}, f, indent=4)
 
-    with open(file, 'w') as f:
-        json.dump({"allStats": allStats}, f, indent=4)
+            # Turn off the relay after successful measurement
+            time.sleep(1)
+            relay.off()
+            powerPin.off()
+            
+            print(f"Measurement successful for {file}")
+            return
 
-    # Turn off the relay after measurement
-    time.sleep(1)
-    relay.off()
-    powerPin.off()
+        time.sleep(0.3)  # Wait before the next measurement attempt
 
+    print(f"Measurement failed for {file} after 5 minutes")
+
+# Inside measurement
 powerPinIn.on()
 relay_in.on()  # Turn on the relay before measurement
 time.sleep(1)
 try:
     measure(inside, pinIn, relay_in, powerPinIn)
-except:
-    print("Error Inside")
+except Exception as e:
+    print(f"Error Inside: {e}")
 
+# Outside measurement
 powerPinOut.on()
 relay_out.on()  # Turn on the relay before measurement
 time.sleep(1)
 try:
     measure(outside, pinOut, relay_out, powerPinOut)
-except:
-    print("Error Outside")
+except Exception as e:
+    print(f"Error Outside: {e}")
