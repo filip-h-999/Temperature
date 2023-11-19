@@ -35,6 +35,7 @@ def measure(file, pin):
     while time.time() < end_time:
         hum, temp = Adafruit_DHT.read(sensor, pin)
         if hum is not None and temp is not None:
+            # print(f"Temperature: {temp}°C, Humidity: {hum}%")
             stats["Time"] = current_time.strftime("%Y-%m-%d %H:%M:%S")
             stats["Humidity"] = hum
             stats["Temp"] = temp
@@ -56,7 +57,7 @@ powerPinIn.on()
 relay_in.on()  # Turn on the relay before measurement
 time.sleep(1)
 try:
-    measure(inside, pinIn, relay_in, powerPinIn)
+    measure(inside, pinIn)
 except Exception as e:
     print(f"Error Inside: {e}")
 
@@ -68,7 +69,7 @@ powerPinOut.on()
 relay_out.on()  # Turn on the relay before measurement
 time.sleep(1)
 try:
-    measure(outside, pinOut, relay_out, powerPinOut)
+    measure(outside, pinOut)
 except Exception as e:
     print(f"Error Outside: {e}")
 
