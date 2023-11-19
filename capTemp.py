@@ -18,7 +18,7 @@ relay_out = OutputDevice(pinOut, active_high=False, initial_value=False)
 powerPinIn = OutputDevice(10)
 powerPinOut = OutputDevice(2)
 
-def measure(file, pin, relay, powerPin):
+def measure(file, pin):
     if os.path.exists(file):
         with open(file, "r") as f:
             data = json.load(f)
@@ -42,16 +42,12 @@ def measure(file, pin, relay, powerPin):
 
             with open(file, 'w') as f:
                 json.dump({"allStats": allStats}, f, indent=4)
-
-            # Turn off the relay after successful measurement
-            time.sleep(1)
-            relay.off()
-            powerPin.off()
             
             print(f"Measurement successful for {file}")
             return
-
-        time.sleep(0.3)  # Wait before the next measurement attempt
+        else:
+            time.sleep(0.3)  # Wait before the next measurement attempt
+            print(f"Measurement failed for {file}, keep retrying")
 
     print(f"Measurement failed for {file} after 5 minutes")
 
@@ -64,6 +60,9 @@ try:
 except Exception as e:
     print(f"Error Inside: {e}")
 
+relay_in.off()
+powerPinIn.off()
+
 # Outside measurement
 powerPinOut.on()
 relay_out.on()  # Turn on the relay before measurement
@@ -72,3 +71,6 @@ try:
     measure(outside, pinOut, relay_out, powerPinOut)
 except Exception as e:
     print(f"Error Outside: {e}")
+
+powerPinOut.off()
+relay_out.off()
