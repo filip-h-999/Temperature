@@ -1,15 +1,15 @@
 import json
 import datetime
 import os
-from pigpio_dht import DHT11
+from pigpio_dht import DHT11, DHT22
 import time
 
 
 sensorIn = DHT11(11)
-sensorOut = DHT11(4)
+sensorOut = DHT22(4)
 
-inside = "wetterDataInsideT.json"
-outside = "wetterDataOutsideT.json"
+inside = "wetterDataInside.json"
+outside = "wetterDataOutside.json"
 
 
 def measure(file, sensor):
